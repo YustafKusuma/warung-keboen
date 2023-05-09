@@ -1,5 +1,14 @@
-import React from 'react';
-import Navigator from './src/navigators';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 
-export default () => <Navigator />;
+import MainContainer from './Navigation/MainContainer';
 
+function App() {
+  return(
+    <NavigationContainer>
+      <MainContainer/>
+    </NavigationContainer>
+  );
+}
+
+export default App;
