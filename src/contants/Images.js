@@ -1,0 +1,16 @@
+export default {
+    LOGO: require('../assets/images/WarungKeboen.png'),
+    DISCOVER: require('../assets/images/discover.png'),
+    DELIVER: require('../assets/images/deliver.png'),
+    PLANTS: require('../assets/images/plants.png'),
+    FACEBOOK: require('../assets/images/facebook.png'),
+    GOOGLE: require('../assets/images/google.png'),
+    POPULAR: require('../assets/images/popular.png'),
+    PLANT: require('../assets/images/plant.png'),
+    SEEDS: require('../assets/images/seeds.png'),
+    TOOLS: require('../assets/images/tools.png'),
+    HOMELOGO: require('../assets/images/homelogo.png'),
+    WADUH: require('../assets/images/waduh.jpeg'),
+    EMPTY_CART: require('../assets/images/empty_cart.png'),
+    LOADING: require('../assets/images/loading.json'),
+  };
