@@ -17,7 +17,7 @@ dalam hal ini secara online. Aplikasi WarungKeboen menyediakan produk-produk tan
 - Cart
 - Account
 
-## Penerapan Konsep pada mata kuliah PAM
+## Penerapan konsep pada mata kuliah PAM
 Aplikasi ini dibuat dengan menggunakan React-Native dan juga database MongoDB yang dikoneksikan terhadap Server Backend. Aplikasi ini menerapkan konsep Redux-Thunk sebagai _state management_. Selain itu aplikasi ini menerapkan fitur enkripsi pada otentikasi password menggunakan fungsi hashing Bcrypt.
 
 ### Dependency yang digunakan :
