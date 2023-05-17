@@ -17,10 +17,10 @@ dalam hal ini secara online. Aplikasi WarungKeboen menyediakan produk-produk tan
 - Cart
 - Account
 
-## Aplikasi dibuat dengan menggunakan React-Native
-### Aplikasi ini menggunakan database MongoDB yang dikoneksikan terhadap pada Server Backend
-### Menerapkan konsep Redux-Thunk sebagai _state management_
-### Menerapkan enkripsi pada otentikasi menggunakan password menggunakan fungsi hashing Bcrypt
+## React-Native
+Aplikasi ini dibuat dengan React-Native dengan database menggunakan MongoDB yang dikoneksikan terhadap Server Backend <br>
+Aplikasi ini menerapkan konsep Redux-Thunk sebagai _state management_. Selain itu aplikasi inin meenerapkan enkripsi <br>
+pada otentikasi password menggunakan fungsi hashing Bcrypt.
 
 ### Dependency yang digunakan :
 - "@react-native-async-storage/async-storage": "^1.18.1"
