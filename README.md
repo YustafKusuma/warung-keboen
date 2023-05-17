@@ -1,10 +1,10 @@
 # WarungKeboen
 
-this repo has backend: https://github.com/yustafkusuma/WarungKeboen_BackEnd
+This repo has backend: https://github.com/yustafkusuma/WarungKeboen_BackEnd
 
 ## Deskripsi
-WarungKeboen adalah sebuah rancangan aplikasi ecommerce yang merupakan bagian dari waralaba WarungKeboen (fiktif) untuk mendukung penjualan <br>
-dalam hal ini secara online. Aplikasi WarungKeboen menyediakan produk-produk tanaman taman dan perkebunan, serta peralatan dan benih untuk berkebun <br>
+WarungKeboen adalah sebuah rancangan aplikasi ecommerce yang merupakan bagian dari waralaba WarungKeboen (fiktif) untuk mendukung penjualan
+dalam hal ini secara online. Aplikasi WarungKeboen menyediakan produk-produk tanaman taman dan perkebunan, serta peralatan dan benih untuk berkebun
 
 ### Fitur (Screen) pada aplikasi :
 - Splashscreen
@@ -18,8 +18,8 @@ dalam hal ini secara online. Aplikasi WarungKeboen menyediakan produk-produk tan
 - Account
 
 ## React-Native
-Aplikasi ini dibuat dengan React-Native dengan database menggunakan MongoDB yang dikoneksikan terhadap Server Backend <br>
-Aplikasi ini menerapkan konsep Redux-Thunk sebagai _state management_. Selain itu aplikasi inin meenerapkan enkripsi <br>
+Aplikasi ini dibuat dengan React-Native dengan database menggunakan MongoDB yang dikoneksikan terhadap Server Backend
+Aplikasi ini menerapkan konsep Redux-Thunk sebagai _state management_. Selain itu aplikasi inin meenerapkan enkripsi
 pada otentikasi password menggunakan fungsi hashing Bcrypt.
 
 ### Dependency yang digunakan :
@@ -42,7 +42,5 @@ pada otentikasi password menggunakan fungsi hashing Bcrypt.
 - "redux": "^4.2.1"
 - "redux-thunk": "^2.4.2"
 
-
-
-
-
+## Lampiran
+Drive : https://drive.google.com/drive/folders/1yQK8q5ni7VLGzaT6Dn8OOJAQA8pMPOf3?usp=sharing
