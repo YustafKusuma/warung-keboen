@@ -1,20 +1,19 @@
 import React from 'react';
 import { View, Text, StyleSheet, StatusBar, Image } from 'react-native';
-import {Colors, Images, Fonts} from '../contants';//nanti dihapus
-import warungKeboenLogo from '../assets/images/WarungKeboen.png';
+import {Colors, Images} from '../contants';
 import { Display } from '../utils';
 
 
-const SplashScreen = () => {
+const SplashScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
         <StatusBar
         barStyle="light-content"
-        backgroundColor = {"#8BD272"}
+        backgroundColor = {Colors.DEFAULT_GREEN}
         translucent
         />
         <Image 
-        source={warungKeboenLogo}
+        source={Images.LOGO}
         resizeMode="contain"
         style={styles.Image}
         />
@@ -28,11 +27,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "#FFFFFF",
+    backgroundColor: Colors.DEFAULT_WHITE,
   },
   Image: {
-    height: 250,
-    width: 250,
+    height: Display.setHeight(50),
+    width: Display.setWidth(60),
   }
 });
 
