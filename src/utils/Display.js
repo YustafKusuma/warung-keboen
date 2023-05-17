@@ -5,4 +5,4 @@ const {height, width} = Dimensions.get('window')
 const setHeight = h => (height / 100) * h;
 const setWidth = w => (width / 100) * w;
 
-export {setHeight, setWidth};
+export default {setHeight, setWidth};
