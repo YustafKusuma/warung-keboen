@@ -1,195 +1,243 @@
-import * as React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, FlatList, Image, Dimensions} from 'react-native';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import React, {useState, useEffect} from 'react';
+import { View, Text, StyleSheet, StatusBar, ScrollView, FlatList, Image} from 'react-native';
+import { Colors, Fonts, Images, Mock} from '../contants';
+import { Separator,CategoryMenuItem, CategoryCard } from '../components';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import plants from '../../assets/const/plants';
-import { useState, useEffect } from 'react';
-//import { collection, getDocs, getFirestore } from "firebase/firestore";
+import Materialcons from 'react-native-vector-icons/MaterialIcons';
+import Feather from 'react-native-vector-icons/Feather';
+import {CategoryService} from '../services';
+import {Display} from '../utils';
 
-const width = Dimensions.get('window').width / 2 - 30;
-//const db = getFirestore()
 
 const HomeScreen = ({navigation}) => {
-    const [categoryIndex, setCategoryIndex] = useState(0);
-//    const [products, setProducts] = useState([]);
-//    const productsRef =  getDocs(collection, (db, 'Products'));
+    const [activeCategory, setActiveCategory] = useState();
+    const [categories, setCategory] = useState(null);
+    const [activeSortItem, setActiveSortItem] = useState('recent');
 
-
-/*    useEffect( async () => {
-      productsRef
-      .onSnapshot(
-        QuerySnapshot => {
-          const products = []
-          QuerySnapshot.forEach((doc) => {
-            const { like, img, name, price } = doc.data()
-            products.push({
-              id: doc.id,
-              like,
-              img,
-              name,
-              price
-            })
-          })
-          setProducts(products)
-        }
-      )
-    }, [])
-*/
-    const categories = ['POPULAR', 'PLANT', 'SEED', 'TOOL'];
-    const CategoryList = () => {
-        return (
-        <View style={style.categoryContainer}>
-            {categories.map((item, index) => (
-                <TouchableOpacity
-                key= {index}
-                activeOpacity={0.8}
-                onPress= {() => setCategoryIndex(index)}>
-                    <Text 
-                        style= {[
-                            style.categoryText,
-                            categoryIndex === index && style.categoryTextSelected,
-                        ]}>
-                        {item}
-                    </Text>
-                </TouchableOpacity>
-            ))}
-        </View>
-    );
-};
-
-const Card = ({plant}) => {
+    useEffect(() => {
+      const unsubscribe = navigation.addListener('focus', () => {
+        CategoryService.getCategory().then(response => {
+          if (response?.status) {
+            setCategory(response?.data);
+          }
+        });
+      });
+      return unsubscribe;
+    }, []);
+  
     return (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => navigation.navigate('Details', plant)}>
-        <View style={style.card}>
-          <View style={{alignItems: 'flex-end'}}>
-            <View
-              style={{
-                width: 30,
-                height: 30,
-                borderRadius: 20,
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: plant.like
-                  ? 'rgba(245, 42, 42,0.2)'
-                  : 'rgba(0,0,0,0.2) ',
-              }}>
-              <Ionicons
-                name="heart"
-                size={18}
-                color={plant.like ? 'red' : 'white'}
-              />
+    <View style={styles.container}>
+      <StatusBar 
+        barStyle= "light-content"
+        backgroundColor= {Colors.DEFAULT_GREEN}
+        translucent
+      />
+      <Separator height={StatusBar.currentHeight} />
+      <View style={styles.backgroundCurvedContainer} />
+      <View style={styles.headerContainer}> 
+        <View style={styles.locationContainer}>
+            <Ionicons name="location-outline"
+            size={15}
+            color={Colors.DEFAULT_WHITE}
+            />
+            <Text style={styles.locationText}>Delivered to</Text>
+            <Text style={styles.selectedLocationText}>HOME</Text>  
+            <Materialcons name="keyboard-arrow-down"
+            size={16}
+            color={Colors.DEFAULT_YELLOW}
+            />
+            <Feather name="bell"
+            size={24}
+            color={Colors.DEFAULT_WHITE}
+            style={{position: 'absolute', right: 0}}
+            />
+            <View style={styles.alertBadge}>
+            <Text style={styles.alertBadgeText}>12</Text>
             </View>
-          </View>
-
-          <View
-            style={{
-              height: 100,
-              alignItems: 'center',
-            }}>
-            <Image
-              source={plant.img}
-              style={{flex: 1, resizeMode: 'contain'}}
+        </View>
+        <View style={styles.searchContainer}>
+            <View style={styles.searchSection}>
+            <Ionicons
+              name="search-outline"
+              size={25}
+              color={Colors.DEFAULT_GREY}
+            />
+            <Text style={styles.searchText}>Search..</Text>
+            </View>
+            <Feather
+            name="sliders"
+            size={20}
+            color={Colors.DEFAULT_YELLOW}
+            style={{marginRight: 10}}
+            />
+         </View>
+         <Separator height={50} />
+      </View >
+    <ScrollView style={styles.listContainer}>
+          <View style={styles.horizontalListContainer}>
+            <View style={styles.listHeader}>
+              <Text style={styles.listHeaderTitle}>Categories</Text>
+              {/* <Text style={styles.listHeaderSubtitle}>See All</Text> */}
+            </View>
+            <FlatList
+            data={categories}
+            keyExtractor={item => item?.id}
+            horizontal
+            ListHeaderComponent={() => <Separator width={20} />}
+            ListFooterComponent={() => <Separator width={20} />}
+            ItemSeparatorComponent={() => <Separator width={10} />}
+            renderItem={({item}) => (
+              <CategoryCard
+                {...item}
+                navigate={categoryId =>
+                  navigation.navigate('Category', {categoryId})
+                }
+                />
+              )}
             />
           </View>
 
-          <Text style={{fontWeight: 'bold', fontSize: 17, marginTop: 10}}>
-            {plant.name}
-          </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 5,
-            }}>
-            <Text style={{fontSize: 19, fontWeight: 'bold'}}>
-              Rp.{plant.price}
-            </Text>
-            
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  };
 
-return (
-    <SafeAreaView style={{flex: 1, paddingHorizontal:20, backgroundColor: 'white'}}>
-        <View style={style.header}>
-            <View>
-                <Image source={require('../../assets/title.png')} style={{ width: 360, height: 80 , paddingTop:100, flex: 1, resizeMode: 'contain'}}/>
-            </View>
-        </View>
-        <View style={{marginTop: 20, flexDirection:"row"}}>
-            <View style= {style.searchContainer}>
-                <Ionicons name= "search-outline" size= {28} style= {{marginLeft :20}}/>
-                <TextInput placeholder='Search' style= {style.input}/>
-            </View>
-        </View>
-        <CategoryList/>
-        <FlatList
-        columnWrapperStyle={{justifyContent: 'space-between'}}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-            marginTop: 10,
-            paddingBottom: 50,
-        }}
-        numColumns={2}
-        data={plants}
-        renderItem={({item}) => {
-            return <Card plant={item} />;
-        }}
-        />
-        </SafeAreaView>  
-    );
+
+
+
+    </ScrollView>
+
+    </View>
+
+  );
 };
 
-const style = StyleSheet.create({
-    header: {
-        marginTop: 40,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    categoryContainer: {
-       flexDirection: 'row',
-       marginTop: 30,
-       marginBottom: 20,
-       paddingHorizontal: 8,
-       justifyContent: 'space-between'
-    },
-    categoryText:{
-        fontSize: 16,
-        color: '#676767',
-        fontWeight: 'bold'
-    },
-    categoryTextSelected: {
-        color: '#8BD272',
-        paddingBottom: 5,
-        borderBottomWidth: 2,
-        borderColor: '#8BD272'
-    },
-    searchContainer: {
-        height: 50,
-        backgroundColor: '#F5F5F5',
-        borderRadius: 10,
+const styles = StyleSheet.create({
+    container: {
         flex: 1,
+        backgroundColor: Colors.SECONDARY_WHITE,
+      },
+      backgroundCurvedContainer: {
+        backgroundColor: Colors.DEFAULT_GREEN,
+        height: 2000,
+        position: 'absolute',
+        top: -1 * (2000 - 180),
+        width: 2000,
+        borderRadius: 2000,
+        alignSelf: 'center',
+        zIndex: -1,
+      },
+      headerContainer: {
+        justifyContent: 'space-evenly',
+      },
+      locationContainer: {
         flexDirection: 'row',
-        alignItems: 'center'
-    },
-    input: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#676767',
-        flex: 1
-    },
-    card: {
-        height: 225,
-        backgroundColor: '#F5F5F5',
-        width,
-        marginHorizontal: 2,
-        borderRadius: 10,
-        marginBottom: 20,
-        padding: 15,
+        alignItems: 'center',
+        marginTop: 10,
+        marginHorizontal: 20,
+      },
+      locationText: {
+        color: Colors.DEFAULT_WHITE,
+        marginLeft: 5,
+        fontSize: 13,
+        lineHeight: 13 * 1.4,
+        fontFamily: Fonts.POPPINS_MEDIUM,
+      },
+      selectedLocationText: {
+        color: Colors.DEFAULT_YELLOW,
+        marginLeft: 5,
+        fontSize: 14,
+        lineHeight: 14 * 1.4,
+        fontFamily: Fonts.POPPINS_MEDIUM,
+      },
+      alertBadge: {
+        borderRadius: 32,
+        backgroundColor: Colors.DEFAULT_YELLOW,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 16,
+        width: 16,
+        position: 'absolute',
+        right: -2,
+        top: -10,
+      },
+      alertBadgeText: {
+        color: Colors.DEFAULT_WHITE,
+        fontSize: 10,
+        lineHeight: 10 * 1.4,
+        fontFamily: Fonts.POPPINS_BOLD,
+      },
+      searchContainer: {
+        backgroundColor: Colors.DEFAULT_WHITE,
+        height: 45,
+        borderRadius: 8,
+        marginHorizontal: 20,
+        marginTop: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      },
+      searchSection: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: 10,
+      },
+      searchText: {
+        color: Colors.DEFAULT_GREY,
+        fontSize: 16,
+        lineHeight: 16 * 1.4,
+        fontFamily: Fonts.POPPINS_MEDIUM,
+        marginLeft: 10,
+      },
+      categoriesContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        marginTop: 20,
+      },
+      listContainer: {
+        paddingVertical: 5,
+        zIndex: -5,
+      },
+      horizontalListContainer: {
+        marginTop: 30,
+      },
+      listHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginHorizontal: 20,
+        marginBottom: 5,
+      },
+      listHeaderTitle: {
+        color: Colors.DEFAULT_BLACK,
+        fontSize: 16,
+        lineHeight: 16 * 1.4,
+        fontFamily: Fonts.POPPINS_MEDIUM,
+      },
+      listHeaderSubtitle: {
+        color: Colors.DEFAULT_YELLOW,
+        fontSize: 13,
+        lineHeight: 13 * 1.4,
+        fontFamily: Fonts.POPPINS_MEDIUM,
+      },
+      sortListContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        backgroundColor: Colors.DEFAULT_WHITE,
+        marginTop: 8,
+        elevation: 1,
+      },
+      sortListItem: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderBottomColor: Colors.DEFAULT_YELLOW,
+        height: 40,
+      },
+      sortListItemText: {
+        color: Colors.DEFAULT_BLACK,
+        fontSize: 13,
+        lineHeight: 13 * 1.4,
+        fontFamily: Fonts.POPPINS_SEMI_BOLD,
       },
 });
+
 export default HomeScreen;
