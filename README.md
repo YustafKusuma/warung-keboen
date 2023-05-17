@@ -3,8 +3,8 @@
 This repo has backend: https://github.com/yustafkusuma/WarungKeboen_BackEnd
 
 ## Deskripsi
-WarungKeboen adalah sebuah rancangan aplikasi ecommerce yang merupakan bagian dari waralaba WarungKeboen (fiktif) untuk mendukung penjualan
-dalam hal ini secara online. Aplikasi WarungKeboen menyediakan produk-produk tanaman taman dan perkebunan, serta peralatan dan benih untuk berkebun
+WarungKeboen adalah sebuah aplikasi ecommerce yang merupakan bagian dari waralaba WarungKeboen (fiktif) untuk mendukung penjualan
+dalam hal ini secara online. Aplikasi WarungKeboen menyediakan produk-produk tanaman hias dan perkebunan, serta peralatan dan benih untuk berkebun.
 
 ### Fitur (Screen) pada aplikasi :
 - Splashscreen
