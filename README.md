@@ -1,6 +1,4 @@
 # WarungKeboen
-Gardening stuff e-commerce mobile app project for `IF3026`
-
 This repo has backend: https://github.com/yustafkusuma/WarungKeboen_BackEnd
 
 ## Deskripsi
